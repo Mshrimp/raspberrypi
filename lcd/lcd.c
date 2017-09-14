@@ -28,7 +28,7 @@ void write_byte(unsigned char byte)
 		byte <<= 1;
 
 		Set_Gpio_Output_Low(PIN_CLK);
-		bcm2835_delay(100);
+		bcm2835_delay(10);
 		Set_Gpio_Output_High(PIN_CLK);
 	}
 	
@@ -52,6 +52,31 @@ void lcd_write_cmd(unsigned char cmd)
 }
 
 
+int lcd_init(void)
+{
+	printf("LCD init!\n");
 
+	Set_Gpio_Output_Low(PIN_nCS);
+	bcm2835_delay(100);
+	Set_Gpio_Output_High(PIN_nCS);
+
+	lcd_write_cmd(0x21);
+	lcd_write_cmd(0x07);
+	lcd_write_cmd(0x13);
+	lcd_write_cmd(128+65);
+
+	lcd_write_cmd(0x20);
+	lcd_write_cmd(0x0C);
+	lcd_write_cmd(0x80);
+	lcd_write_cmd(0x40);
+
+	//clear();
+	Set_Gpio_Output_High(PIN_BACK_LED);
+	bcm2835_delay(2000);
+	Set_Gpio_Output_Low(PIN_BACK_LED);
+	
+
+	return 0;
+}
 
 

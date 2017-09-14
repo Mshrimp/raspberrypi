@@ -10,6 +10,9 @@ int main(int argc, char *argv[])
 	}
 	printf("bcm2835 init OK!\n");
 
+	lcd_init();
+
+	printf("LCD init OK!\n");
 
 
 	bcm2835_close();

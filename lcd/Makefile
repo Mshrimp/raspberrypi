@@ -1,6 +1,6 @@
 
 all:
-	gcc -o test lcd.c main.c
+	gcc -o test lcd.c main.c -lbcm2835
 
 
 clean:

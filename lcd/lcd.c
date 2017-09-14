@@ -19,23 +19,23 @@ void write_byte(unsigned char byte)
 
 	for (i = 0; i < 8; i++)
 	{
-		Set_Gpio_Output_Low(PIN_CLK);
-
-		if (byte & (0x01<<(8-1))) {
+		if (byte & 0x80) {
 			Set_Gpio_Output_High(PIN_DATA);
 		} else {
 			Set_Gpio_Output_Low(PIN_DATA);
 		}
-
-		Set_Gpio_Output_High(PIN_CLK);
 		byte <<= 1;
+
+		Set_Gpio_Output_Low(PIN_CLK);
+		bcm2835_delay(100);
+		Set_Gpio_Output_High(PIN_CLK);
 	}
 	
 	Set_Gpio_Output_High(PIN_nCS);
 }
 
 
-void write_data(unsigned char data)
+void lcd_write_data(unsigned char data)
 {
 	write_data_or_cmd(WRITE_DATA);
 
@@ -43,7 +43,7 @@ void write_data(unsigned char data)
 }
 
 
-void write_cmd(unsigned char cmd)
+void lcd_write_cmd(unsigned char cmd)
 {
 	write_data_or_cmd(WRITE_CMD);
 

@@ -25,7 +25,7 @@
 
 void write_date_or_cmd(unsigned char data_cmd);
 void write_byte(unsigned char byte);
-void write_data(unsigned char data);
-void write_cmd(unsigned char cmd);
+void lcd_write_data(unsigned char data);
+void lcd_write_cmd(unsigned char cmd);
 
 

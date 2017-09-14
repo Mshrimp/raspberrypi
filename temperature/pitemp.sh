@@ -2,14 +2,9 @@
 
 cd /sys/class/thermal/thermal_zone0
 
-#echo $(DATE)
-#pitemp=temp/1000.0
-
-#echo $(pitemp)
-
-while(1)
+while((1))
 do
-#date
-cat temp
-
+	date
+	cat temp
+	sleep 2
 done

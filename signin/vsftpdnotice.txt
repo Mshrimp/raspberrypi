@@ -1,0 +1,68 @@
+附上我自己翻译的配置文件说明
+# Example config file /etc/vsftpd.conf#示例配置文件 /etc/vsftpd.conf
+
+# The default compiled in settings are fairly paranoid. This sample file# loosens things up a bit, to make the ftp daemon more usable.# Please see vsftpd.conf.5 for all compiled in defaults.
+#默认编译的设置相当的繁琐。这个示例文件稍微放松了些，好让ftp服务更好用。请看vsftpd.conf.5的所有默认选项
+
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's# capabilities.
+#必读：这个示例文件并不是关于vsftpd选项的详尽的展示。请看vsftpd.conf.5的用户手册来获得vsftpd的所有功能。#
+
+# Run standalone?  vsftpd can run either from an inetd or as a standalone# daemon started from an initscript.listen=YES#独立运行？vsftpd可以执行从inetd执行或者从启动脚本开始作为一个单独的服务。
+
+# Run standalone with IPv6?# Like the listen parameter, except vsftpd will listen on an IPv6 socket# instead of an IPv4 one. This parameter and the listen parameter are mutually# exclusive.
+
+#listen_ipv6=YES
+#用ipv6独立运行？#就像监听参数一样，除了vsftpd将会监听ipv6的socket而不是ipv4的。这个参数和监听参数是相互独立的。
+
+# Allow anonymous FTP? (Beware - allowed by default if you comment this out).anonymous_enable=YES
+#允许匿名FTP？注意-默认是开启的
+
+# Uncomment this to allow local users to log in.
+#local_enable=YES#取消注释这行将会允许用户登录
+
+# Uncomment this to enable any form of FTP write command.
+#write_enable=YES
+#取消注释这行将会允许任何形式的ftp写命令
+
+# Default umask for local users is 077. You may wish to change this to 022,# if your users expect that (022 is used by most other ftpd's)#local_umask=022#默认的本地用户的掩码是077。如果你的用户期望022（其他ftp用022）的话，你可能希望改成022。
+
+# Uncomment this to allow the anonymous FTP user to upload files. This only# has an effect if the above global write enable is activated. Also, you will# obviously need to create a directory writable by the FTP user.
+#anon_upload_enable=YES#取消这条注释将会允许匿名的ftp用户上传文件。这只有在以上全局写使能被激活时才生效。而且，你很显然要创建一个#对于FTP用户来说可写的目录。
+
+# Uncomment this if you want the anonymous FTP user to be able to create# new directories.
+#anon_mkdir_write_enable=YES#取消这条注释如果你想让匿名FTP用户能够创建新目录的话
+
+# Activate directory messages - messages given to remote users when they# go into a certain directory.
+dirmessage_enable=YES#激活目录消息-让用户在进入特定的目录时收到消息
+
+# If enabled, vsftpd will display directory listings with the time# in  your  local  time  zone.  The default is to display GMT. The# times returned by the MDTM FTP command are also affected by this# option.如果使能的话，vsftpd将会展示目录列表用本地的时间区。默认是展示GMT。MDTM FTP命令也会被这条命令影响
+
+use_localtime=YES#
+
+# Activate logging of uploads/downloads.
+xferlog_enable=YES#激活上传下载的日志
+
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES#保证端口传输连接是来自于20号端口。
+
+# If you want, you can arrange for uploaded anonymous files to be owned by
+# a different user. Note! Using "root" for uploaded files is not# recommended!
+
+#chown_uploads=YES
+#chown_username=whoever#如果你有需要,你可以设置上传的匿名文件被一个不同的用户拥有。注意，用root作为文件的拥有者并不被推荐
+
+# You may override where the log file goes if you like. The default is shown# below.
+#xferlog_file=/var/log/vsftpd.log#如果你喜欢的话你可以改写日志文件的存放位置。默认的被设置在下面
+# If you want, you can have your log file in standard ftpd xferlog format.# Note that the default log file location is /var/log/xferlog in this case.
+#xferlog_std_format=YES#如果需要的话，你可以把你的日志文件以标准的ftpd xferlog形式存放。注意着这种情况下默认的日志文件位置是/var/log/xferlog
+
+# You may change the default value for timing out an idle session.
+#idle_session_timeout=600#你可以改变回话超时的默认值
+# You may change the default value for timing out a data connection.
+
+#data_connection_timeout=120#你可以改变数据连接的超时值
+# It is recommended that you define on your system a unique user which the
+# ftp server can use as a totally isolated and unprivileged user.
+#nopriv_user=ftpsecure#推荐你在你系统上定义一个特殊用户，ftp服务器可以用来作为完全特殊孤立和无特权的用户。
+
+# Enable this and the server will recognise asynchronous ABOR requests. Not# recommended for security (the code is non-trivial). Not enabling it,# however, may confuse older FTP clients.#async_abor_enable=YES#开启这个服务器将会识别为异步ABOR请求，为安全考虑不推荐。不开启的话有可能拒绝更老版本的FTP客户端。# By default the server will pretend to allow ASCII mode but in fact ignore# the request. Turn on the below options to have the server actually do ASCII# mangling on files when in ASCII mode.# Beware that on some FTP servers, ASCII support allows a denial of service# attack (DoS) via the command "SIZE /big/file" in ASCII mode. vsftpd# predicted this attack and has always been safe, reporting the size of the# raw file.# ASCII mangling is a horrible feature of the protocol.#ascii_upload_enable=YES#ascii_download_enable=YES#默认服务器将会允许ASCII模式但是实际上忽略请求。开启以下选项实际上能够让服务器在ASCII模式下对文件做ASCII转换#注意在一些ftp服务器上，ASCII支持允许在ASCII模式下通过命令 SIZE /big/file禁止服务攻击。通过报告原始文件的大小vfstpd预测这次攻击#让服务变得安全# You may fully customise the login banner string:#ftpd_banner=Welcome to blah FTP service.#你可以完全自定制登录时的欢迎标语。# You may specify a file of disallowed anonymous e-mail addresses. Apparently# useful for combatting certain DoS attacks.#deny_email_enable=YES# (default follows)#banned_email_file=/etc/vsftpd.banned_emails#你可以通过定制匿名的邮件地址的文件。很显然对于有效的抵御某些DoS攻击很有效果。# You may restrict local users to their home directories.  See the FAQ for# the possible risks in this before using chroot_local_user or# chroot_list_enable below.#chroot_local_user=YES#你可以限制本地用户到他们的家目录中。具体参见FAQ了解潜在的在用chroot_local_user或# chroot_list_enable之前。# You may specify an explicit list of local users to chroot() to their home# directory. If chroot_local_user is YES, then this list becomes a list of# users to NOT chroot().# (Warning! chroot'ing can be very dangerous. If using chroot, make sure that# the user does not have write access to the top level directory within the# chroot)#chroot_local_user=YES#chroot_list_enable=YES# (default follows)#chroot_list_file=/etc/vsftpd.chroot_list#你可以制定一份明确的本地用户来chroot到家目录的列表。如果chroot_local_user是yes，那么这份列表将会变成一份不允许chroot的列表#注意chrooting可能是非常危险的。如果使用chroot，注意保证用户不能够对顶层的目录有写权限。# You may activate the "-R" option to the builtin ls. This is disabled by# default to avoid remote users being able to cause excessive I/O on large# sites. However, some broken FTP clients such as "ncftp" and "mirror" assume# the presence of the "-R" option, so there is a strong case for enabling it.#ls_recurse_enable=YES#你可以为ls命令激活-R选项。这是默认对远端用户禁止的来保证不对大站点造成额外的IO。然而许多破旧的FTP客户端比如ncftp和mirror默认-R选项的存在，所以强烈建议使能这个选项# Customization## Some of vsftpd's settings don't fit the filesystem layout by# default.#默认有些的配置并不适合文件系统的布局# This option should be the name of a directory which is empty.  Also, the# directory should not be writable by the ftp user. This directory is used# as a secure chroot() jail at times vsftpd does not require filesystem# access.secure_chroot_dir=/var/run/vsftpd/empty#这个选项应该是空目录的名字。而且，这一个目录不应该被ftp用户可写。这个目录在vftpd不需要文件系统存取时被用作安全的chroot区域# This string is the name of the PAM service vsftpd will use.pam_service_name=vsftpd#这个字符串是要用的PAM服务的名字# This option specifies the location of the RSA certificate to use for SSL# encrypted connections.rsa_cert_file=/etc/ssl/private/vsftpd.pem这个选项是用来规定用来进行SSL加密传输的RSA证书的地址。

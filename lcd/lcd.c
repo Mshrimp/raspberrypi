@@ -1,10 +1,11 @@
 #include "lcd.h"
 
 
-void write_date_or_cmd(unsigned char data_cmd)
+
+void write_data_or_cmd(unsigned char data_cmd)
 {
 	if (data_cmd == WRITE_CMD) {
-		Set_Gpio_Output_Low(PIN_DATE_CMD);
+		Set_Gpio_Output_Low(PIN_DATA_CMD);
 	} else {
 		Set_Gpio_Output_High(PIN_DATA_CMD);
 	}

@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 		printf("bcm2835 init failed!\n");
 		return -1;
 	}
+	printf("bcm2835 init OK!\n");
 
 
 

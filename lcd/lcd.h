@@ -4,6 +4,7 @@
 
 
 #define Set_Gpio_Dir_Output(pin)	bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP);
+#define Set_Gpio_Dir_Input(pin)		bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_INPT);
 
 #define Set_Gpio_Output_High(pin)	bcm2835_gpio_write(pin, HIGH)
 #define Set_Gpio_Output_Low(pin)	bcm2835_gpio_write(pin, LOW)
@@ -25,5 +26,5 @@ void write_date_or_cmd(unsigned char data_cmd);
 void write_byte(unsigned char byte);
 void lcd_write_data(unsigned char data);
 void lcd_write_cmd(unsigned char cmd);
-
+void lcd_gpio_config(void);
 

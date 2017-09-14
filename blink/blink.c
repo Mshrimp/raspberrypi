@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		bcm2835_gpio_write(PIN, HIGH);
-		bcm2835_delay(100);
+		bcm2835_delay(1000);
 
 		bcm2835_gpio_write(PIN, LOW);
-		bcm2835_delay(100);	
+		bcm2835_delay(1000);	
 	}
 	bcm2835_close();
 

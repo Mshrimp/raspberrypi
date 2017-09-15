@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <bcm2835.h>
 
-#define PIN RPI_GPIO_P1_23
+#define PIN 26
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
 	bcm2835_gpio_fsel(PIN, BCM2835_GPIO_FSEL_OUTP);
 
-	while (i < 10)
+	while (i < 4)
 	{
 		printf("i = %d\n", i);
 

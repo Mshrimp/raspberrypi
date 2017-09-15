@@ -4,5 +4,5 @@ all:
 
 
 clean:
-	rm blink
+	rm blink -rf
 

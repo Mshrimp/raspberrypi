@@ -69,18 +69,18 @@ void lcd_gpio_config(void)
 
 	Set_Gpio_Output_High(PIN_nCS);
 	Set_Gpio_Output_High(PIN_nRST);
-	Set_Gpio_Output_High(PIN_BACK_LED);
+	Set_Gpio_Output_Low(PIN_BACK_LED);
 
 	Set_Gpio_Output_High(PIN_nCS);
-	bcm2835_delay(2000);
+	bcm2835_delay(200);
 	Set_Gpio_Output_Low(PIN_nCS);
 
 	Set_Gpio_Output_High(PIN_nRST);
-	bcm2835_delay(2000);
+	bcm2835_delay(200);
 	Set_Gpio_Output_Low(PIN_nRST);
 
 	Set_Gpio_Output_High(PIN_BACK_LED);
-	bcm2835_delay(2000);
+	bcm2835_delay(500);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
 }
 
@@ -108,7 +108,7 @@ int lcd_init(void)
 
 	//clear();
 	Set_Gpio_Output_High(PIN_BACK_LED);
-	bcm2835_delay(2000);
+	bcm2835_delay(500);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
 	
 

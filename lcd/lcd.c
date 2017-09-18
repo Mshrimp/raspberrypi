@@ -1,7 +1,5 @@
 #include "lcd.h"
 
-
-
 void write_data_or_cmd(unsigned char data_cmd)
 {
 	if (data_cmd == WRITE_CMD) {
@@ -10,7 +8,6 @@ void write_data_or_cmd(unsigned char data_cmd)
 		Set_Gpio_Output_High(PIN_DATA_CMD);
 	}
 }
-
 
 void write_byte(unsigned char byte)
 {
@@ -35,7 +32,6 @@ void write_byte(unsigned char byte)
 	Set_Gpio_Output_High(PIN_nCS);
 }
 
-
 void lcd_write_data(unsigned char data)
 {
 	printf("LCD write data!\n");
@@ -45,7 +41,6 @@ void lcd_write_data(unsigned char data)
 	write_byte(data);
 }
 
-
 void lcd_write_cmd(unsigned char cmd)
 {
 	printf("LCD write cmd!\n");
@@ -54,7 +49,6 @@ void lcd_write_cmd(unsigned char cmd)
 
 	write_byte(cmd);
 }
-
 
 void lcd_gpio_config(void)
 {
@@ -66,7 +60,9 @@ void lcd_gpio_config(void)
 	Set_Gpio_Dir_Output(PIN_nCS);
 	Set_Gpio_Dir_Output(PIN_nRST);
 	Set_Gpio_Dir_Output(PIN_BACK_LED);
+}
 
+/*
 	Set_Gpio_Output_High(PIN_nCS);
 	Set_Gpio_Output_High(PIN_nRST);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
@@ -82,15 +78,11 @@ void lcd_gpio_config(void)
 	Set_Gpio_Output_High(PIN_BACK_LED);
 	bcm2835_delay(500);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
-}
-
+*/
 
 int lcd_init(void)
 {
 	printf("LCD init!\n");
-
-	lcd_gpio_config();
-	
 
 	Set_Gpio_Output_High(PIN_nCS);
 	bcm2835_delay(100);
@@ -110,7 +102,6 @@ int lcd_init(void)
 	Set_Gpio_Output_High(PIN_BACK_LED);
 	bcm2835_delay(500);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
-	
 
 	return 0;
 }

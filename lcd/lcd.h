@@ -20,6 +20,8 @@
 #define WRITE_CMD	0
 #define WRITE_DATA	1
 
+#define LCD_X_MAX	84
+#define LCD_Y_MAX	6
 
 
 void write_date_or_cmd(unsigned char data_cmd);
@@ -27,4 +29,7 @@ void write_byte(unsigned char byte);
 void lcd_write_data(unsigned char data);
 void lcd_write_cmd(unsigned char cmd);
 void lcd_gpio_config(void);
+void lcd_clear(void);
+void lcd_set_xy(unsigned char x, unsigned char y);
+void lcd_write_char(unsigned char c);
 

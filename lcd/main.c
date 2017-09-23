@@ -10,9 +10,10 @@ int main(int argc, char *argv[])
 	}
 	printf("bcm2835 init OK!\n");
 
-	lcd_gpio_config();
-
 	lcd_init();
+
+	lcd_set_xy(6, 3);
+	lcd_write_char('A');
 
 	printf("LCD init OK!\n");
 

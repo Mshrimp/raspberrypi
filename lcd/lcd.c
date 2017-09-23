@@ -25,7 +25,7 @@ void write_byte(unsigned char byte)
 		byte <<= 1;
 
 		Set_Gpio_Output_Low(PIN_CLK);
-		bcm2835_delay(10);
+		bcm2835_delay(1);
 		Set_Gpio_Output_High(PIN_CLK);
 	}
 	
@@ -62,48 +62,75 @@ void lcd_gpio_config(void)
 	Set_Gpio_Dir_Output(PIN_BACK_LED);
 }
 
-/*
-	Set_Gpio_Output_High(PIN_nCS);
-	Set_Gpio_Output_High(PIN_nRST);
-	Set_Gpio_Output_Low(PIN_BACK_LED);
-
-	Set_Gpio_Output_High(PIN_nCS);
-	bcm2835_delay(200);
-	Set_Gpio_Output_Low(PIN_nCS);
-
-	Set_Gpio_Output_High(PIN_nRST);
-	bcm2835_delay(200);
-	Set_Gpio_Output_Low(PIN_nRST);
-
-	Set_Gpio_Output_High(PIN_BACK_LED);
-	bcm2835_delay(500);
-	Set_Gpio_Output_Low(PIN_BACK_LED);
-*/
-
 int lcd_init(void)
 {
+	lcd_gpio_config();
 	printf("LCD init!\n");
 
+	Set_Gpio_Output_High(PIN_nRST);
+	bcm2835_delay(1);
+	Set_Gpio_Output_Low(PIN_nRST);
+	bcm2835_delay(1);
+	Set_Gpio_Output_High(PIN_nRST);
+
 	Set_Gpio_Output_High(PIN_nCS);
-	bcm2835_delay(100);
+	bcm2835_delay(1);
 	Set_Gpio_Output_Low(PIN_nCS);
+	bcm2835_delay(1);
 
 	lcd_write_cmd(0x21);
-	lcd_write_cmd(0x07);
+	lcd_write_cmd(0xC8);
+	lcd_write_cmd(0x06);
 	lcd_write_cmd(0x13);
-	lcd_write_cmd(128+65);
-
 	lcd_write_cmd(0x20);
+
+	//lcd_clear();
+
 	lcd_write_cmd(0x0C);
-	lcd_write_cmd(0x80);
-	lcd_write_cmd(0x40);
 
 	//clear();
 	Set_Gpio_Output_High(PIN_BACK_LED);
 	bcm2835_delay(500);
 	Set_Gpio_Output_Low(PIN_BACK_LED);
+	Set_Gpio_Output_High(PIN_nCS);
 
 	return 0;
+}
+
+// x: 0~83
+// y: 0~5
+void lcd_set_xy(unsigned char x, unsigned char y)
+{
+	lcd_write_cmd(0x40 | y);
+	bcm2835_delay(1);
+	lcd_write_cmd(0x80 | x);
+	bcm2835_delay(1);
+}
+
+void lcd_clear(void)
+{
+	int i, j;
+
+	for (j = 0; j < LCD_Y_MAX; j++)
+	{
+		for (i = 0; i < LCD_X_MAX; i++)
+		{
+			lcd_write_data(0x00);
+		}
+	}
+}
+
+
+void lcd_write_char(unsigned char c)
+{
+	int C[] = { 0x00, 0x7C, 0x12, 0x11, 0x12, 0x7C};
+	int i = 0;
+
+	for (i = 0; i < 6; i++)
+	{
+		lcd_write_data(C[i]);
+		bcm2835_delay(1);
+	}
 }
 
 
